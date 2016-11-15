@@ -1,7 +1,7 @@
 # Личный проект «Пиксель хантер» [![Build status][travis-image]][travis-url]
 
 * Студент: [Владимир Коршунов](https://up.htmlacademy.ru/ecmascript/1/user/83596).
-* Наставник: `Неизвестно`.
+* Наставник: [Олег Плотников](https://htmlacademy.ru/profile/id230042).
 
 ---
 
