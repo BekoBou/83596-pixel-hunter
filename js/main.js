@@ -1,14 +1,14 @@
-(() => {
-  let loadTemplate = (templateName) => {
-    let node = document.createElement('span');
-    let template = document.getElementById(templateName);
-    let content = template.content ? template.content : template;
-    node.appendChild(content);
-    return node.cloneNode(true);
-  };
+import intro from './templates/intro.js';
+import greeting from './templates/greeting.js';
+import rules from './templates/rules.js';
+import game1 from './templates/game-1.js';
+import game2 from './templates/game-2.js';
+import game3 from './templates/game-3.js';
+import stats from './templates/stats.js';
 
+(() => {
   // Rules
-  let rulesElement = loadTemplate('rules');
+  let rulesElement = rules;
   let rulesSubmit = rulesElement.querySelector('.rules__button');
   let rulesInput = rulesElement.querySelector('.rules__input');
 
@@ -31,13 +31,13 @@
   mainElement.after(switcher);
 
   let slides = [
-    loadTemplate('intro'),
-    loadTemplate('greeting'),
+    intro,
+    greeting,
     rulesElement,
-    loadTemplate('game-1'),
-    loadTemplate('game-2'),
-    loadTemplate('game-3'),
-    loadTemplate('stats')
+    game1,
+    game2,
+    game3,
+    stats
   ];
   let current = -1;
 
