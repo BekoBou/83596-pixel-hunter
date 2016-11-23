@@ -1,4 +1,4 @@
-import getElementFromTemplate from './../templates.js';
+import {getElementFromTemplate} from './../templates.js';
 
 const node = `<div class="greeting  central--blur">
   <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
@@ -14,5 +14,4 @@ const node = `<div class="greeting  central--blur">
   <div class="greeting__continue"><span><img src="img/arrow_right.svg" width="64" height="64" alt="Next"></span></div>
 </div>`;
 
-const greeting = getElementFromTemplate(node);
-export default greeting;
+export default getElementFromTemplate(node);

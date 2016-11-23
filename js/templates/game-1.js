@@ -1,4 +1,4 @@
-import getElementFromTemplate from './../templates.js';
+import {getElementFromTemplate} from './../templates.js';
 
 const node = `<header class="header">
   <div class="header__back">
@@ -56,5 +56,4 @@ const node = `<header class="header">
   </div>
 </div>`;
 
-const game = getElementFromTemplate(node);
-export default game;
+export default getElementFromTemplate(node);

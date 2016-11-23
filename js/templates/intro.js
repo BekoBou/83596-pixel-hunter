@@ -1,4 +1,4 @@
-import getElementFromTemplate from './../templates.js';
+import {getElementFromTemplate} from './../templates.js';
 
 const node = `<div id="intro" class="intro">
   <h1 class="intro__asterisk">*</h1>
@@ -6,5 +6,4 @@ const node = `<div id="intro" class="intro">
     Sparnaay.</p>
 </div>`;
 
-const intro = getElementFromTemplate(node);
-export default intro;
+export default getElementFromTemplate(node);

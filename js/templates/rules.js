@@ -1,4 +1,4 @@
-import getElementFromTemplate from './../templates.js';
+import {getElementFromTemplate} from './../templates.js';
 
 const node = `<header class="header">
   <div class="header__back">
@@ -25,5 +25,4 @@ const node = `<header class="header">
   </form>
 </div>`;
 
-const rules = getElementFromTemplate(node);
-export default rules;
+export default getElementFromTemplate(node);

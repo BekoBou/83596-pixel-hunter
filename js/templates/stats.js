@@ -1,4 +1,4 @@
-import getElementFromTemplate from './../templates.js';
+import {getElementFromTemplate} from './../templates.js';
 
 const node = `<header class="header">
   <div class="header__back">
@@ -109,5 +109,4 @@ const node = `<header class="header">
   </table>
 </div>`;
 
-const stats = getElementFromTemplate(node);
-export default stats;
+export default getElementFromTemplate(node);
