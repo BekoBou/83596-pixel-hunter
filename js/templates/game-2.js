@@ -1,4 +1,5 @@
-import {getElementFromTemplate} from './../templates.js';
+import {getElementFromTemplate, renderTemplate} from './../templates.js';
+import game from './game-3.js';
 
 const node = `<header class="header">
   <div class="header__back">
@@ -45,4 +46,16 @@ const node = `<header class="header">
   </div>
 </div>`;
 
-export default getElementFromTemplate(node);
+export default () => {
+  let baseElement = getElementFromTemplate(node);
+
+  // .game__answer -> #game-3
+  let elements = baseElement.querySelectorAll('.game__answer');
+  for (const item of elements) {
+    item.addEventListener('click', () => {
+      renderTemplate(game());
+    });
+  }
+
+  return baseElement;
+};

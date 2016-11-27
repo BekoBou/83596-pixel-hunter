@@ -1,4 +1,5 @@
-import {getElementFromTemplate} from './../templates.js';
+import {getElementFromTemplate, renderTemplate} from './../templates.js';
+import greeting from './greeting.js';
 
 const node = `<div id="intro" class="intro">
   <h1 class="intro__asterisk">*</h1>
@@ -6,4 +7,14 @@ const node = `<div id="intro" class="intro">
     Sparnaay.</p>
 </div>`;
 
-export default getElementFromTemplate(node);
+export default () => {
+  let baseElement = getElementFromTemplate(node);
+
+  // .intro__asterisk -> #greeting
+  let element = baseElement.querySelector('.intro__asterisk');
+  element.addEventListener('click', () => {
+    renderTemplate(greeting());
+  });
+
+  return baseElement;
+};
