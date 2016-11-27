@@ -109,4 +109,6 @@ const node = `<header class="header">
   </table>
 </div>`;
 
-export default getElementFromTemplate(node);
+export default () => {
+  return getElementFromTemplate(node);
+};

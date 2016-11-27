@@ -1,4 +1,5 @@
-import {getElementFromTemplate} from './../templates.js';
+import {getElementFromTemplate, renderTemplate} from './../templates.js';
+import stats from './stats.js';
 
 const node = `<header class="header">
   <div class="header__back">
@@ -43,4 +44,16 @@ const node = `<header class="header">
   </div>
 </div>`;
 
-export default getElementFromTemplate(node);
+export default () => {
+  let baseElement = getElementFromTemplate(node);
+
+  // .game__option -> #stats
+  let elements = baseElement.querySelectorAll('.game__option');
+  for (const item of elements) {
+    item.addEventListener('click', () => {
+      renderTemplate(stats());
+    });
+  }
+
+  return baseElement;
+};

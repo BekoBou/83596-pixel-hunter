@@ -1,4 +1,5 @@
-import {getElementFromTemplate} from './../templates.js';
+import {getElementFromTemplate, renderTemplate} from './../templates.js';
+import rules from './rules.js';
 
 const node = `<div class="greeting  central--blur">
   <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
@@ -14,4 +15,14 @@ const node = `<div class="greeting  central--blur">
   <div class="greeting__continue"><span><img src="img/arrow_right.svg" width="64" height="64" alt="Next"></span></div>
 </div>`;
 
-export default getElementFromTemplate(node);
+export default () => {
+  let baseElement = getElementFromTemplate(node);
+
+  // .greeting__continue -> #rules
+  let element = baseElement.querySelector('.greeting__continue');
+  element.addEventListener('click', () => {
+    renderTemplate(rules());
+  });
+
+  return baseElement;
+};
