@@ -1,24 +1,9 @@
 import {getElementFromTemplate, renderTemplate} from './../templates.js';
-import {initialGame} from './../game.js';
+import {status} from './../game.js';
+import {header, getHeart, renderStats} from './common.js';
 import game from './game-2.js';
 
-const header = `<header class="header">
-  <div class="header__back">
-      <span class="back">
-        <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
-        <img src="img/logo_small.png" width="101" height="44">
-      </span>
-  </div>
-  <h1 class="game__timer">${ initialGame.timer }</h1>
-  <div class="game__lives">
-    <img src="img/heart__empty.svg" class="game__heart" alt="Life" width="32" height="32">
-    <img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">
-    <img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">
-  </div>
-</header>`;
-
 const question = {
-  'task': 'Угадайте для каждого изображения фото или рисунок?',
   'options': [
     {
       'src': 'http://placehold.it/468x458',
@@ -49,32 +34,19 @@ const getOption = (option) => {
 </div>`;
 };
 
-// @todo заменить на константы
-const stats = ['stats__result--wrong',
-  'stats__result--slow',
-  'stats__result--fast',
-  'stats__result--correct',
-  'stats__result--unknown',
-  'stats__result--unknown',
-  'stats__result--unknown',
-  'stats__result--unknown',
-  'stats__result--unknown',
-  'stats__result--unknown'
+const stats = [status.WRONG,
+  status.SLOW,
+  status.FAST,
+  status.CORRECT
 ];
 
 const node = `${ header }
 <div class="game">
-  <p class="game__task">${ question.task }</p>
+  <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
   <form class="game__content">
-    ${ question.options.map(getOption) }
+    ${ question.options.map(getOption).join('') }
   </form>
-  <div class="stats">
-    <ul class="stats">
-      ${ stats.map((statsItem) => {
-        return `<li class="stats__result ${ statsItem }"></li>`;
-      }) }
-    </ul>
-  </div>
+  ${ renderStats(stats) }
 </div>`;
 
 export default () => {
