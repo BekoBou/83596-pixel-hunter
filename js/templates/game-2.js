@@ -1,13 +1,13 @@
 import {getElementFromTemplate, renderTemplate} from './../templates.js';
 import {status} from './../game.js';
-import {header, getHeart, renderStats} from './common.js';
+import {header, renderStats} from './common.js';
 import game from './game-3.js';
 
 const option = {
-      'src': 'http://placehold.it/705x455',
-      'alt': 'Option 1',
-      'input': 'question1',
-      'answer': 'photo'
+  'src': 'http://placehold.it/705x455',
+  'alt': 'Option 1',
+  'input': 'question1',
+  'answer': 'photo'
 };
 
 const stats = [status.WRONG,

@@ -2,10 +2,10 @@ import {initialGame} from './../game.js';
 
 export const getHeart = (lifes) => {
   let result = '';
-  for (var i = 0; i < 3 - lifes; i++) {
+  for (let i = 0; i < 3 - lifes; i++) {
     result += '<img src="img/heart__empty.svg" class="game__heart" alt="Life" width="32" height="32">';
   }
-  for (var i = 0; i <  lifes; i++) {
+  for (let i = 0; i < lifes; i++) {
     result += '<img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">';
   }
   return result;
@@ -32,12 +32,12 @@ export const renderStats = (stats, questionCount = 10) => {
     result += `<li class="stats__result  stats__result--${ statsItem }"></li>`;
   }
 
-  for (var i = 0; i < questionCount - stats.length; i++) {
-    result += `<li class="stats__result  stats__result--unknown"></li>`;
+  for (let i = 0; i < questionCount - stats.length; i++) {
+    result += '<li class="stats__result  stats__result--unknown"></li>';
   }
 
   result += `</ul>
   </div>`;
 
   return result;
-}
+};

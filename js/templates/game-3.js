@@ -1,6 +1,6 @@
 import {getElementFromTemplate, renderTemplate} from './../templates.js';
 import {status} from './../game.js';
-import {header, getHeart, renderStats} from './common.js';
+import {header, renderStats} from './common.js';
 import statistics from './stats.js';
 
 const question = {

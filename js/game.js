@@ -11,4 +11,4 @@ export const status = {
   CORRECT: 'correct',
   FAST: 'fast',
   UNKNOWN: 'unknown',
-}
+};
