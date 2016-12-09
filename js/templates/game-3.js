@@ -53,7 +53,9 @@ const node = `${ header }
   <form class="game__content  game__content--triple">
     ${ question.options.map(getOption).join('') }
   </form>
-  ${ renderStats(stats) }
+  <div class="stats">
+    ${ renderStats(stats) }
+  </div>
 </div>`;
 
 export default () => {

@@ -25,8 +25,7 @@ export const header = `<header class="header">
 </header>`;
 
 export const renderStats = (stats, questionCount = 10) => {
-  let result = `<div class="stats">
-    <ul class="stats">`;
+  let result = '<ul class="stats">';
 
   for (let statsItem of stats) {
     result += `<li class="stats__result  stats__result--${ statsItem }"></li>`;
@@ -36,8 +35,7 @@ export const renderStats = (stats, questionCount = 10) => {
     result += '<li class="stats__result  stats__result--unknown"></li>';
   }
 
-  result += `</ul>
-  </div>`;
+  result += '</ul>';
 
   return result;
 };

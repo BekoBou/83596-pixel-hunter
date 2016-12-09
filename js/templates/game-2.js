@@ -38,7 +38,9 @@ const node = `${ header }
       </label>
     </div>
   </form>
-  ${ renderStats(stats) }
+  <div class="stats">
+    ${ renderStats(stats) }
+  </div>
 </div>`;
 
 export default () => {
