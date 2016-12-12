@@ -1,5 +1,5 @@
 import {getScreen, questionType} from './game.js';
-import nextScreen from './step-4.js';
+import nextScreen from './step-7.js';
 import template from './templates/question-3.js';
 
 const question = {
