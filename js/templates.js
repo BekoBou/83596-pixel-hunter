@@ -1,6 +1,9 @@
-export const getElementFromTemplate = (content) => {
-  const node = document.createElement('span');
+export const getElementFromTemplate = (content, attrClass = null) => {
+  const node = document.createElement('div');
   node.innerHTML = content;
+  if (attrClass !== null) {
+    node.setAttribute('class', attrClass);
+  }
   return node.cloneNode(true);
 };
 
