@@ -6,22 +6,19 @@ const question = {
   'type': questionType.TRIPLE,
   'options': [
     {
-      'selected': '',
       'src': 'http://placehold.it/304x455',
       'alt': 'Option 1',
-      'answer': true
+      'answer': 'photo'
     },
     {
-      'selected': '  game__option--selected',
       'src': 'http://placehold.it/304x455',
       'alt': 'Option 2',
-      'answer': false
+      'answer': 'paint'
     },
     {
-      'selected': '',
       'src': 'http://placehold.it/304x455',
-      'alt': 'Option 2',
-      'answer': false
+      'alt': 'Option 3',
+      'answer': 'paint'
     }
   ]
 };

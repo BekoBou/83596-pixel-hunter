@@ -8,7 +8,6 @@ const question = {
     {
       'src': 'http://placehold.it/705x455',
       'alt': 'Option 1',
-      'input': 'question1',
       'answer': 'photo'
     }
   ]

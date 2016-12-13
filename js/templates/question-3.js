@@ -15,7 +15,7 @@ const stats = [status.WRONG,
 ];
 
 const getOption = (option) => {
-  return `<div class="game__option${ option.selected }">
+  return `<div class="game__option">
     <img src="${ option.src }" alt="${ option.alt }" width="304" height="455">
   </div>`;
 };

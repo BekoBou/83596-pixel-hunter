@@ -2,15 +2,15 @@ import {getElementFromTemplate} from './../templates.js';
 import {status} from './../game.js';
 import {header, renderStats} from './common.js';
 
-const getOption = (option) => {
+const getOption = (option, index) => {
   return `<div class="game__option">
   <img src="${ option.src }" alt="${ option.alt }" width="468" height="458">
   <label class="game__answer game__answer--photo">
-    <input name="${ option.input }" type="radio" value="photo">
+    <input name="question${ index + 1 }" type="radio" value="photo">
     <span>Фото</span>
   </label>
   <label class="game__answer game__answer--paint">
-    <input name="${ option.input }" type="radio" value="paint">
+    <input name="question${ index + 1 }" type="radio" value="paint">
     <span>Рисунок</span>
   </label>
 </div>`;
