@@ -127,6 +127,8 @@ const node = `<header class="header">
   ${ renderResultTable(statsResult3, initialGame.lifes, 3) }
 </div>`;
 
-export default () => {
+const stats = () => {
   return getElementFromTemplate(node);
 };
+
+export default stats();

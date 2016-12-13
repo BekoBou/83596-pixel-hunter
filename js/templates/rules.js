@@ -1,5 +1,5 @@
 import {getElementFromTemplate, renderTemplate} from './../templates.js';
-import game from './game-1.js';
+import game from './../step-1.js';
 
 const node = `<header class="header">
   <div class="header__back">
@@ -45,7 +45,7 @@ export default () => {
   element.addEventListener('click', (e) => {
     e.preventDefault();
 
-    renderTemplate(game());
+    renderTemplate(game);
   });
 
   return baseElement;
