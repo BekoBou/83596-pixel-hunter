@@ -134,4 +134,4 @@ const stats = (game) => {
 
 export default (game) => {
   renderTemplate(stats(game));
-}
+};
