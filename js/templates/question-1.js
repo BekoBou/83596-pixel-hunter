@@ -1,7 +1,3 @@
-import {getElementFromTemplate} from './../templates.js';
-import {status} from './../game.js';
-import {header, renderStats} from './common.js';
-
 const getOption = (option, index) => {
   return `<div class="game__option">
   <img src="${ option.src }" alt="${ option.alt }" width="468" height="458">
@@ -16,24 +12,13 @@ const getOption = (option, index) => {
 </div>`;
 };
 
-const stats = [status.WRONG,
-  status.SLOW,
-  status.FAST,
-  status.CORRECT
-];
-
 export default (question) => {
-
-  const node = `${ header }
-  <div class="game">
+  const node = `
     <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
     <form class="game__content">
       ${ question.options.map(getOption).join('') }
     </form>
-    <div class="stats">
-      ${ renderStats(stats) }
-    </div>
-  </div>`;
+    `;
 
-  return getElementFromTemplate(node);
+  return node;
 };

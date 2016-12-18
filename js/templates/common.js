@@ -1,5 +1,3 @@
-import {initialGame} from './../game.js';
-
 export const getHeart = (lifes) => {
   let result = '';
   for (let i = 0; i < 3 - lifes; i++) {
@@ -11,18 +9,22 @@ export const getHeart = (lifes) => {
   return result;
 };
 
-export const header = `<header class="header">
-  <div class="header__back">
-      <span class="back">
-        <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
-        <img src="img/logo_small.png" width="101" height="44">
-      </span>
-  </div>
-  <h1 class="game__timer">${ initialGame.timer }</h1>
-  <div class="game__lives">
-    ${ getHeart(initialGame.lifes) }
-  </div>
-</header>`;
+export const getHeader = (game) => {
+  const header = `<header class="header">
+    <div class="header__back">
+        <span class="back">
+          <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
+          <img src="img/logo_small.png" width="101" height="44">
+        </span>
+    </div>
+    <h1 class="game__timer">${ game.timer }</h1>
+    <div class="game__lives">
+      ${ getHeart(game.lifes) }
+    </div>
+  </header>`;
+
+  return header;
+};
 
 export const renderStats = (stats, questionCount = 10) => {
   let result = '<ul class="stats">';

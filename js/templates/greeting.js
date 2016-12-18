@@ -15,14 +15,12 @@ const node = `<div class="greeting  central--blur">
   <div class="greeting__continue"><span><img src="img/arrow_right.svg" width="64" height="64" alt="Next"></span></div>
 </div>`;
 
-export default () => {
-  let baseElement = getElementFromTemplate(node);
+let baseElement = getElementFromTemplate(node);
 
-  // .greeting__continue -> #rules
-  let element = baseElement.querySelector('.greeting__continue');
-  element.addEventListener('click', () => {
-    renderTemplate(rules());
-  });
+// .greeting__continue -> #rules
+let element = baseElement.querySelector('.greeting__continue');
+element.addEventListener('click', () => {
+  renderTemplate(rules);
+});
 
-  return baseElement;
-};
+export default baseElement;

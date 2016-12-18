@@ -1,5 +1,5 @@
 import {getElementFromTemplate, renderTemplate} from './../templates.js';
-import game from './../step-1.js';
+import {startGame} from './../game.js';
 
 const node = `<header class="header">
   <div class="header__back">
@@ -26,27 +26,25 @@ const node = `<header class="header">
   </form>
 </div>`;
 
-export default () => {
-  let baseElement = getElementFromTemplate(node);
+let baseElement = getElementFromTemplate(node);
 
-  let rulesSubmit = baseElement.querySelector('.rules__button');
-  let rulesInput = baseElement.querySelector('.rules__input');
+let rulesSubmit = baseElement.querySelector('.rules__button');
+let rulesInput = baseElement.querySelector('.rules__input');
 
-  rulesInput.addEventListener('input', () => {
-    if (rulesInput.value) {
-      rulesSubmit.removeAttribute('disabled');
-    } else {
-      rulesSubmit.setAttribute('disabled', '');
-    }
-  });
+rulesInput.addEventListener('input', () => {
+  if (rulesInput.value) {
+    rulesSubmit.removeAttribute('disabled');
+  } else {
+    rulesSubmit.setAttribute('disabled', '');
+  }
+});
 
-  // .rules__button -> #game-1
-  let element = baseElement.querySelector('.rules__button');
-  element.addEventListener('click', (e) => {
-    e.preventDefault();
+// .rules__button -> #game-1
+let element = baseElement.querySelector('.rules__button');
+element.addEventListener('click', (e) => {
+  e.preventDefault();
 
-    renderTemplate(game);
-  });
+  renderTemplate(startGame());
+});
 
-  return baseElement;
-};
+export default baseElement;
