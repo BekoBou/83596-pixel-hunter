@@ -2,7 +2,7 @@ import {renderTemplate, getElementFromTemplate} from './templates.js';
 import {status, questionType} from './const.js';
 import questionTemplate from './templates/questions.js';
 import questions from './data/questions.js';
-import {getHeader, renderStats} from './templates/common.js';
+import {renderHeader, renderStats} from './templates/common.js';
 import stats from './templates/stats.js';
 
 import {initialGame, setCurrentQuestion, getQuestion, setLifes, setTimer, hasQuestion} from './data/game-data.js';
@@ -25,8 +25,9 @@ const renewTimer = (game) => {
         stats(game);
       }
     }
-    let timerElement = document.querySelector('.game__timer');
-    timerElement.innerHTML = game.timer;
+
+    renderHeader(game);
+
   }, 1000);
 };
 
@@ -43,8 +44,7 @@ const tryNext = (game) => {
 };
 
 const buildTemplate = (game, question) => {
-  const node = `${ getHeader(game) }
-  <div class="game">
+  const node = `<div class="game">
     ${ questionTemplate(question) }
     <div class="stats">
       ${ renderStats(game.answers) }
@@ -52,7 +52,10 @@ const buildTemplate = (game, question) => {
   </div>
   `;
 
-  let baseElement = getElementFromTemplate(node);
+  let baseElement = getElementFromTemplate('');
+  baseElement.appendChild(renderHeader(game));
+  baseElement.appendChild(getElementFromTemplate(node));
+
   let elements = null; // let scope; I don't want use var and ternary operator.
 
   if (question.type === questionType.TRIPLE) {

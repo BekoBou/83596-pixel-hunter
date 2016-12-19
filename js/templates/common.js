@@ -11,9 +11,11 @@ export const getHeart = (lifes) => {
   return result;
 };
 
+const header = document.createElement('header');
+header.classList.add('header');
+
 export const getHeader = (game) => {
-  const header = `<header class="header">
-    <div class="header__back">
+  header.innerHTML = `<div class="header__back">
         <span class="back">
           <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
           <img src="img/logo_small.png" width="101" height="44">
@@ -22,10 +24,13 @@ export const getHeader = (game) => {
     <h1 class="game__timer">${ game.timer }</h1>
     <div class="game__lives">
       ${ getHeart(game.lifes) }
-    </div>
-  </header>`;
+    </div>`;
 
   return header;
+};
+
+export const renderHeader = (game) => {
+  return getHeader(game);
 };
 
 export const renderStats = (stats, questionCount = 10) => {
