@@ -1,4 +1,3 @@
-// prefix status modificator stats__result--
 export const status = {
   WRONG: 'wrong',
   SLOW: 'slow',
