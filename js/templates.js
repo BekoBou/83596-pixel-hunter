@@ -1,3 +1,5 @@
+const mainContainer = document.getElementById('main');
+
 export const getElementFromTemplate = (content, attrClass = null) => {
   const node = document.createElement('div');
   node.innerHTML = content;
@@ -7,7 +9,7 @@ export const getElementFromTemplate = (content, attrClass = null) => {
   return node.cloneNode(true);
 };
 
-export const renderTemplate = (template, element = document.getElementById('main')) => {
+export const renderTemplate = (template, element = mainContainer) => {
   element.innerHTML = '';
   element.appendChild(template);
 };

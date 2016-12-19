@@ -7,14 +7,12 @@ const node = `<div id="intro" class="intro">
     Sparnaay.</p>
 </div>`;
 
-export default () => {
-  let baseElement = getElementFromTemplate(node);
+let baseElement = getElementFromTemplate(node);
 
-  // .intro__asterisk -> #greeting
-  let element = baseElement.querySelector('.intro__asterisk');
-  element.addEventListener('click', () => {
-    renderTemplate(greeting());
-  });
+// .intro__asterisk -> #greeting
+let element = baseElement.querySelector('.intro__asterisk');
+element.addEventListener('click', () => {
+  renderTemplate(greeting);
+});
 
-  return baseElement;
-};
+export default baseElement;

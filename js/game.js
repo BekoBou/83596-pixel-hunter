@@ -1,40 +1,85 @@
-import {renderTemplate} from './templates.js';
+import {renderTemplate, getElementFromTemplate} from './templates.js';
+import {status, questionType} from './const.js';
+import questionTemplate from './templates/questions.js';
+import questions from './data/questions.js';
+import {renderHeader, renderStats} from './templates/common.js';
+import stats from './templates/stats.js';
 
-export const initialGame = {
-  lifes: 2,
-  questions: [],
-  timer: 0
+import {initialGame, setCurrentQuestion, getQuestion, setLifes, setTimer, hasQuestion} from './data/game-data.js';
+
+let currentGame = Object.assign({}, initialGame);
+let timer = null;
+
+const renewTimer = (game) => {
+  timer = setInterval(() => {
+    game = setTimer(game, game.timer - 1);
+    if (game.timer === 0) {
+      clearInterval(timer);
+      // save answers -> just test (need pure function)
+      game.answers.push(status.WRONG);
+
+      if (game.lifes > 0) {
+        game = setLifes(game, game.lifes - 1);
+        tryNext(game);
+      } else {
+        stats(game);
+      }
+    }
+
+    renderHeader(game);
+
+  }, 1000);
 };
 
-// prefix status modificator stats__result--
-export const status = {
-  WRONG: 'wrong',
-  SLOW: 'slow',
-  CORRECT: 'correct',
-  FAST: 'fast',
-  UNKNOWN: 'unknown',
+const tryNext = (game) => {
+  // render next question
+  if (hasQuestion(questions, game.questionNumber + 1)) {
+    game = setCurrentQuestion(game, game.questionNumber + 1);
+    game = setTimer(game, 30);
+    const questionData = getQuestion(questions, game.questionNumber);
+    renderTemplate(buildTemplate(game, questionData));
+  } else {
+    stats(game);
+  }
 };
 
-export const questionType = {
-  SINGLE: 1,
-  DOUBLE: 2,
-  TRIPLE: 3
-};
+const buildTemplate = (game, question) => {
+  const node = `<div class="game">
+    ${ questionTemplate(question) }
+    <div class="stats">
+      ${ renderStats(game.answers) }
+    </div>
+  </div>
+  `;
 
-export const getScreen = (data, template, nextScreen) => {
-  let baseElement = template(data);
+  let baseElement = getElementFromTemplate('');
+  baseElement.appendChild(renderHeader(game));
+  baseElement.appendChild(getElementFromTemplate(node));
 
   let elements = null; // let scope; I don't want use var and ternary operator.
-  if (data.type === questionType.TRIPLE) {
+
+  if (question.type === questionType.TRIPLE) {
     elements = baseElement.querySelectorAll('.game__option');
   } else {
     elements = baseElement.querySelectorAll('.game__answer');
   }
 
   for (const item of elements) {
-    item.addEventListener('click', () => {
-      renderTemplate(nextScreen);
+    item.addEventListener('click', (e) => {
+      e.preventDefault();
+      clearInterval(timer);
+
+      // save answers -> just test (need pure function)
+      game.answers.push(status.CORRECT);
+
+      tryNext(game);
     });
   }
+  renewTimer(game);
   return baseElement;
+};
+
+export const startGame = () => {
+  const questionData = getQuestion(questions, currentGame.questionNumber);
+  return buildTemplate(currentGame, questionData);
 };

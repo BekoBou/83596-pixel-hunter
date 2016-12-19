@@ -1,5 +1,6 @@
-import {getElementFromTemplate} from './../templates.js';
-import {status, initialGame} from './../game.js';
+import {getElementFromTemplate, renderTemplate} from './../templates.js';
+import {status} from './../const.js';
+import {initialGame} from './../data/game-data.js';
 import {renderStats} from './common.js';
 
 const statsResult1 = [status.WRONG,
@@ -64,7 +65,7 @@ const renderResultTable = (stats, lifes, tableNumber) => {
 
   let table = `<table class="result__table">
     <tr>
-      <td class="result__number">1.</td>
+      <td class="result__number">3.</td>
       <td colspan="2">
         ${ renderStats(stats) }
       </td>
@@ -127,8 +128,10 @@ const node = `<header class="header">
   ${ renderResultTable(statsResult3, initialGame.lifes, 3) }
 </div>`;
 
-const stats = () => {
+const stats = (game) => {
   return getElementFromTemplate(node);
 };
 
-export default stats();
+export default (game) => {
+  renderTemplate(stats(game));
+};
