@@ -1,18 +1,18 @@
 import {questionType} from './../const.js';
-import questionTemplateType1 from './question-1.js';
-import questionTemplateType2 from './question-2.js';
-import questionTemplateType3 from './question-3.js';
+import questionSingleQuestionTemplate from './question-single.js';
+import questionDoubleQuestionTemplate from './question-double.js';
+import questionTripleQuestionTemplate from './question-triple.js';
 
 const questionTemplate = (question) => {
   switch (question.type) {
     case questionType.SINGLE: {
-      return questionTemplateType2(question);
+      return questionSingleQuestionTemplate(question);
     }
     case questionType.DOUBLE: {
-      return questionTemplateType1(question);
+      return questionDoubleQuestionTemplate(question);
     }
     case questionType.TRIPLE: {
-      return questionTemplateType3(question);
+      return questionTripleQuestionTemplate(question);
     }
     default: {
       throw new RangeError('Передан вопрос с неизвестным типом');
