@@ -61,12 +61,9 @@ class GamePresenter {
     } else {
       gameModel.addWrongAnswer();
       gameModel.takeLife();
-      if ( !gameModel.lifes) {
-        this.endGame();
-      }
     }
 
-    if (gameModel.hasNextQuestion()) {
+    if (gameModel.hasNextQuestion() && gameModel.lifes) {
       gameModel.nextQuestion();
       this.changeQuestion();
     } else {
