@@ -1,85 +1,91 @@
-import {renderTemplate, getElementFromTemplate} from './templates.js';
-import {status, questionType} from './const.js';
-import questionTemplate from './templates/questions.js';
-import questions from './data/questions.js';
-import {renderHeader, renderStats} from './templates/common.js';
-import stats from './templates/stats.js';
+import gameModel from './model';
+import {status} from './const';
+import Application from './application';
 
-import {initialGame, setCurrentQuestion, getQuestion, setLifes, setTimer, hasQuestion} from './data/game-data.js';
+import HeaderView from './views/header';
+import QuestionsView from './views/questions';
 
-let currentGame = Object.assign({}, initialGame);
-let timer = null;
+class GamePresenter {
+  constructor(username) {
+    this._username = username;
+    this.header = new HeaderView(gameModel.state);
+    this.content = new QuestionsView(gameModel.state);
 
-const renewTimer = (game) => {
-  timer = setInterval(() => {
-    game = setTimer(game, game.timer - 1);
-    if (game.timer === 0) {
-      clearInterval(timer);
-      // save answers -> just test (need pure function)
-      game.answers.push(status.WRONG);
+    this.root = document.createElement('div');
+    this.root.appendChild(this.header.element);
+    this.root.appendChild(this.content.element);
 
-      if (game.lifes > 0) {
-        game = setLifes(game, game.lifes - 1);
-        tryNext(game);
+    this._interval = null;
+  }
+
+  startGame() {
+    this.changeQuestion();
+
+    this._interval = setInterval(() => {
+      gameModel.tick();
+      this.updateHeader();
+      if (gameModel.timer === 0) {
+        this.choiceHandler();
+      }
+    }, 1000);
+  }
+
+  endGame() {
+    clearInterval(this._interval);
+    Application.showStats(gameModel.state);
+  }
+
+  updateHeader() {
+    const header = new HeaderView(gameModel.state);
+    this.root.replaceChild(header.element, this.header.element);
+    this.header = header;
+  }
+
+  changeQuestion() {
+    gameModel.resetTimer();
+    this.updateHeader();
+
+    const question = new QuestionsView(gameModel.state);
+    question.onAnswer = this.choiceHandler.bind(this);
+
+    this.changeContentView(question);
+  }
+
+  changeContentView(view) {
+    this.root.replaceChild(view.element, this.content.element);
+    this.content = view;
+  }
+
+  choiceHandler(userChoice = false) {
+    if (userChoice) {
+      // check and save
+      if (gameModel.timer >= 20) {
+        gameModel.state.answers.push(status.FAST);
+      } else if (gameModel.timer < 10) {
+        gameModel.state.answers.push(status.SLOW);
       } else {
-        stats(game);
+        gameModel.state.answers.push(status.CORRECT);
+      }
+    } else {
+      gameModel.state.answers.push(status.WRONG);
+      gameModel.wrongAnswer();
+      if ( !gameModel.lifes) {
+        this.endGame();
       }
     }
 
-    renderHeader(game);
-
-  }, 1000);
-};
-
-const tryNext = (game) => {
-  // render next question
-  if (hasQuestion(questions, game.questionNumber + 1)) {
-    game = setCurrentQuestion(game, game.questionNumber + 1);
-    game = setTimer(game, 30);
-    const questionData = getQuestion(questions, game.questionNumber);
-    renderTemplate(buildTemplate(game, questionData));
-  } else {
-    stats(game);
+    if (gameModel.hasNextQuestion()) {
+      gameModel.nextQuestion();
+      this.changeQuestion();
+    } else {
+      this.endGame();
+    }
   }
-};
+}
 
-const buildTemplate = (game, question) => {
-  const node = `<div class="game">
-    ${ questionTemplate(question) }
-    <div class="stats">
-      ${ renderStats(game.answers) }
-    </div>
-  </div>
-  `;
+const game = new GamePresenter();
 
-  let baseElement = getElementFromTemplate('');
-  baseElement.appendChild(renderHeader(game));
-  baseElement.appendChild(getElementFromTemplate(node));
-
-  let elements = null; // let scope; I don't want use var and ternary operator.
-
-  if (question.type === questionType.TRIPLE) {
-    elements = baseElement.querySelectorAll('.game__option');
-  } else {
-    elements = baseElement.querySelectorAll('.game__answer');
-  }
-
-  for (const item of elements) {
-    item.addEventListener('click', (e) => {
-      e.preventDefault();
-      clearInterval(timer);
-
-      // save answers -> just test (need pure function)
-      game.answers.push(status.CORRECT);
-
-      tryNext(game);
-    });
-  }
-  renewTimer(game);
-  return baseElement;
-};
-
-export const startGame = () => {
-  const questionData = getQuestion(questions, currentGame.questionNumber);
-  return buildTemplate(currentGame, questionData);
+export default (username) => {
+  game.startGame(username);
+  return game.root;
 };

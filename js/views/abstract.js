@@ -10,7 +10,7 @@ export default class AbstractView {
   }
 
   getMarkup() {
-    throw new Error(`Abstract method should be implemented`);
+    throw new Error('Abstract method should be implemented');
   }
 
   bindHandlers() {

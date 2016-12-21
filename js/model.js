@@ -1,4 +1,4 @@
-import {initialGame, hasQuestion, getQuestion, setCurrentQuestion, setLifes, setTime} from './data/game-data';
+import {initialGame, hasQuestion, getQuestion, setCurrentQuestion, setLifes, setTimer} from './data/game-data';
 
 class Model {
   constructor(state = initialGame) {
@@ -17,20 +17,28 @@ class Model {
     return this._state.lifes;
   }
 
+  set answer(value) {
+    this._state.answers.push(value);
+  }
+
+  get answers() {
+    return this._state.answers;
+  }
+
   wrongAnswer() {
     this._state = setLifes(this._state, this._state.lifes - 1);
   }
 
   tick() {
-    this._state = setTime(this._state, this._state.timer - 1);
+    this._state = setTimer(this._state, this._state.timer - 1);
   }
 
   resetTimer() {
-    this._state = setTime(this._state, 30);
+    this._state = setTimer(this._state, 30);
   }
 
   set timer(value) {
-    this._state = setTime(this._state, value);
+    this._state = setTimer(this._state, value);
   }
 
   get timer() {
@@ -45,7 +53,7 @@ class Model {
     return hasQuestion(this._state.questionNumber + 1);
   }
 
-  get nextQuestion() {
+  nextQuestion() {
     this._state = setCurrentQuestion(this._state, this._state.questionNumber + 1);
   }
 

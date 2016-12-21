@@ -1,5 +1,5 @@
 export default (question) => {
-  const option = question.options.shift();
+  const option = question.options[0];
 
   const node = `<p class="game__task">Угадай, фото или рисунок?</p>
     <form class="game__content  game__content--wide">
