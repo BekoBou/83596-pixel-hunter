@@ -6,8 +6,7 @@ import HeaderView from './views/header';
 import QuestionsView from './views/questions';
 
 class GamePresenter {
-  constructor(username) {
-    this._username = username;
+  constructor() {
     this.header = new HeaderView(gameModel.state);
     this.content = new QuestionsView(gameModel.state);
 
@@ -18,7 +17,8 @@ class GamePresenter {
     this._interval = null;
   }
 
-  startGame() {
+  startGame(username) {
+    this._username = username;
     this.changeQuestion();
 
     this._interval = setInterval(() => {
