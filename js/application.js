@@ -1,8 +1,8 @@
-import introView from './views/intro';
-import greetingView from './views/greeting';
-import rulesView from './views/rules';
+import introView from './screens/intro';
+import greetingView from './screens/greeting';
+import rulesView from './screens/rules';
 import gameStart from './game';
-import statsView from './views/stats';
+import statsView from './screens/stats';
 
 const mainContainer = document.getElementById('main');
 const renderTemplate = (element, container = mainContainer) => {

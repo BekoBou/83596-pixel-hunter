@@ -1,4 +1,4 @@
-import AbstractView from './abstract';
+import AbstractView from './../views/abstract';
 import Application from './../application';
 
 class IntroView extends AbstractView {
