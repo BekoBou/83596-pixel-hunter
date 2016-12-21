@@ -1,4 +1,4 @@
-import AbstractView from './abstract';
+import AbstractView from './../views/abstract';
 import getStars from './../templates/stars';
 import {status} from './../const';
 
