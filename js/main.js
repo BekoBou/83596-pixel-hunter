@@ -1,6 +1,3 @@
-import intro from './templates/intro.js';
-import {renderTemplate} from './templates.js';
+import Application from './application';
 
-(() => {
-  renderTemplate(intro);
-})();
+Application.showIntro();

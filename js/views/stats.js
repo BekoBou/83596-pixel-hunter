@@ -1,54 +1,18 @@
-import {getElementFromTemplate, renderTemplate} from './../templates.js';
-import {status} from './../const.js';
-import {initialGame} from './../data/game-data.js';
-import {renderStats} from './common.js';
-
-const statsResult1 = [status.WRONG,
-  status.SLOW,
-  status.FAST,
-  status.CORRECT,
-  status.WRONG,
-  status.UNKNOWN,
-  status.SLOW,
-  status.UNKNOWN,
-  status.FAST,
-  status.UNKNOWN
-];
-
-const statsResult2 = [status.WRONG,
-  status.SLOW,
-  status.FAST,
-  status.CORRECT,
-  status.WRONG,
-  status.UNKNOWN,
-  status.SLOW,
-  status.WRONG,
-  status.FAST,
-  status.WRONG
-];
-
-const statsResult3 = [status.WRONG,
-  status.CORRECT,
-  status.CORRECT,
-  status.CORRECT,
-  status.WRONG,
-  status.UNKNOWN,
-  status.CORRECT,
-  status.UNKNOWN,
-  status.CORRECT,
-  status.UNKNOWN
-];
+import AbstractView from './abstract';
+import getStars from './../templates/stars';
+import {status} from './../const';
 
 const renderResultTable = (stats, lifes, tableNumber) => {
   const wrongAnswer = stats.filter((item) => item === status.WRONG).length;
 
-  if (wrongAnswer > 3) {
+  if (wrongAnswer >= 3) {
     // FAIL
-    let table = `<table class="result__table">
+    let table = `<h1>Поражение!</h1>
+    <table class="result__table">
       <tr>
         <td class="result__number">${ tableNumber }.</td>
         <td>
-          ${ renderStats(statsResult2) }
+          ${ getStars(stats) }
         </td>
         <td class="result__total"></td>
         <td class="result__total  result__total--final">fail</td>
@@ -63,11 +27,12 @@ const renderResultTable = (stats, lifes, tableNumber) => {
   const slowAnswer = stats.filter((item) => (item === status.SLOW)).length;
   const totalResult = rightAnswer * 100 + fastAnswer * 50 + lifes * 50 - slowAnswer * 50;
 
-  let table = `<table class="result__table">
+  let table = `<h1>Победа!</h1>
+  <table class="result__table">
     <tr>
-      <td class="result__number">3.</td>
+      <td class="result__number">1.</td>
       <td colspan="2">
-        ${ renderStats(stats) }
+        ${ getStars(stats) }
       </td>
       <td class="result__points">×&nbsp;100</td>
       <td class="result__total">${ rightAnswer * 100 }</td>
@@ -112,26 +77,25 @@ const renderResultTable = (stats, lifes, tableNumber) => {
   return table;
 };
 
+class StatsView extends AbstractView {
+  constructor(state) {
+    super();
+    this._state = state;
+  }
 
-const node = `<header class="header">
-  <div class="header__back">
-    <span class="back">
-      <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
-      <img src="img/logo_small.png" width="101" height="44">
-    </span>
-  </div>
-</header>
-<div class="result">
-  <h1>Победа!</h1>
-  ${ renderResultTable(statsResult1, initialGame.lifes, 1) }
-  ${ renderResultTable(statsResult2, initialGame.lifes, 2) }
-  ${ renderResultTable(statsResult3, initialGame.lifes, 3) }
-</div>`;
+  getMarkup() {
+    return `<header class="header">
+      <div class="header__back">
+        <span class="back">
+          <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
+          <img src="img/logo_small.png" width="101" height="44">
+        </span>
+      </div>
+    </header>
+    <div class="result">
+      ${ renderResultTable(this._state.answers, this._state.lifes, 1) }
+    </div>`;
+  }
+}
 
-const stats = (game) => {
-  return getElementFromTemplate(node);
-};
-
-export default (game) => {
-  renderTemplate(stats(game));
-};
+export default (game = null) => new StatsView(game).element;
