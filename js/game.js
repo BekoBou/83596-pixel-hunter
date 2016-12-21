@@ -1,5 +1,4 @@
 import gameModel from './model';
-import {status} from './const';
 import Application from './application';
 
 import HeaderView from './views/header';
@@ -58,17 +57,10 @@ class GamePresenter {
 
   choiceHandler(userChoice = false) {
     if (userChoice) {
-      // check and save
-      if (gameModel.timer >= 20) {
-        gameModel.state.answers.push(status.FAST);
-      } else if (gameModel.timer < 10) {
-        gameModel.state.answers.push(status.SLOW);
-      } else {
-        gameModel.state.answers.push(status.CORRECT);
-      }
+      gameModel.addCorrectAnswer(gameModel.timer);
     } else {
-      gameModel.state.answers.push(status.WRONG);
-      gameModel.wrongAnswer();
+      gameModel.addWrongAnswer();
+      gameModel.takeLife();
       if ( !gameModel.lifes) {
         this.endGame();
       }

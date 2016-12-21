@@ -1,4 +1,5 @@
 import {initialGame, hasQuestion, getQuestion, setCurrentQuestion, setLifes, setTimer} from './data/game-data';
+import {status} from './const';
 
 class Model {
   constructor(state = initialGame) {
@@ -25,7 +26,7 @@ class Model {
     return this._state.answers;
   }
 
-  wrongAnswer() {
+  takeLife() {
     this._state = setLifes(this._state, this._state.lifes - 1);
   }
 
@@ -59,6 +60,20 @@ class Model {
 
   getCurrentQuestion() {
     return getQuestion(this._state.questionNumber);
+  }
+
+  addCorrectAnswer(timer) {
+    if (timer >= 20) {
+      this._state.answers.push(status.FAST);
+    } else if (timer < 10) {
+      this._state.answers.push(status.SLOW);
+    } else {
+      this._state.answers.push(status.CORRECT);
+    }
+  }
+
+  addWrongAnswer() {
+    this._state.answers.push(status.WRONG);
   }
 }
 
