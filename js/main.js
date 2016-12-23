@@ -1,4 +1,5 @@
 import Application from './application';
+import migrate from './adapter';
 import 'whatwg-fetch';
 
 const statusHTTP = (response) => {
@@ -17,7 +18,7 @@ window.fetch(url)
     .then(statusHTTP)
     .then((response) => response.json())
     .then((data) => {
-      Application.data = data;
+      Application.data = migrate(data);
     })
     .then(Application.showGreating)
     .catch(Application.showError);

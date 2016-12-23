@@ -1,7 +1,7 @@
 import {questionType} from './../const.js';
-import questions from './../data/questions';
 import AbstractView from './abstract';
 import getStars from './../templates/stars';
+import imageLoader from './../image-loader/image-loader';
 
 import questionSingleQuestionTemplate from './../templates/question-single';
 import questionDoubleQuestionTemplate from './../templates/question-double';
@@ -28,7 +28,7 @@ export default class QuestionsView extends AbstractView {
   constructor(state) {
     super();
     this._state = state;
-    this._question = questions[this._state.questionNumber];
+    this._question = this._state.questions[this._state.questionNumber];
   }
 
   getMarkup() {
@@ -91,5 +91,14 @@ export default class QuestionsView extends AbstractView {
     for (const item of elements) {
       item.addEventListener('click', userChoice);
     }
+
+    const images = this.element.querySelectorAll('.game__content img');
+    Array.prototype.slice.call(images).map((elementToReplace, index) => {
+      imageLoader(elementToReplace).load({
+        url: this._question.options[index].src,
+        width: this._question.options[index].width,
+        height: this._question.options[index].height,
+      });
+    });
   }
 }

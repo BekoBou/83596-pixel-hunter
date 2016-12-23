@@ -1,9 +1,10 @@
 import {initialGame, hasQuestion, getQuestion, setCurrentQuestion, setLifes, setTimer} from './data/game-data';
 import {status} from './const';
 
-class Model {
-  constructor(state = initialGame) {
+export default class Model {
+  constructor(data, state = initialGame) {
     this._state = state;
+    this._state.questions = data;
   }
 
   get state() {
@@ -51,7 +52,7 @@ class Model {
   }
 
   hasNextQuestion() {
-    return hasQuestion(this._state.questionNumber + 1);
+    return hasQuestion(this._state.questions, this._state.questionNumber + 1);
   }
 
   nextQuestion() {
@@ -59,7 +60,7 @@ class Model {
   }
 
   getCurrentQuestion() {
-    return getQuestion(this._state.questionNumber);
+    return getQuestion(this._state.questions, this._state.questionNumber);
   }
 
   addCorrectAnswer(timer) {
@@ -76,5 +77,3 @@ class Model {
     this._state.answers.push(status.WRONG);
   }
 }
-
-export default new Model();

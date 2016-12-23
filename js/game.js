@@ -1,13 +1,14 @@
-import gameModel from './model';
+import GameModel from './model';
 import Application from './application';
 
 import HeaderView from './views/header';
 import QuestionsView from './views/questions';
 
 class GamePresenter {
-  constructor() {
-    this.header = new HeaderView(gameModel.state);
-    this.content = new QuestionsView(gameModel.state);
+  constructor(model) {
+    this.model = model;
+    this.header = new HeaderView(this.model.state);
+    this.content = new QuestionsView(this.model.state);
 
     this.root = document.createElement('div');
     this.root.appendChild(this.header.element);
@@ -21,9 +22,9 @@ class GamePresenter {
     this.changeQuestion();
 
     this._interval = setInterval(() => {
-      gameModel.tick();
+      this.model.tick();
       this.updateHeader();
-      if (gameModel.timer === 0) {
+      if (this.model.timer === 0) {
         this.choiceHandler();
       }
     }, 1000);
@@ -31,20 +32,20 @@ class GamePresenter {
 
   endGame() {
     clearInterval(this._interval);
-    Application.showStats(gameModel.state);
+    Application.showStats(this.model.state);
   }
 
   updateHeader() {
-    const header = new HeaderView(gameModel.state);
+    const header = new HeaderView(this.model.state);
     this.root.replaceChild(header.element, this.header.element);
     this.header = header;
   }
 
   changeQuestion() {
-    gameModel.resetTimer();
+    this.model.resetTimer();
     this.updateHeader();
 
-    const question = new QuestionsView(gameModel.state);
+    const question = new QuestionsView(this.model.state);
     question.onAnswer = this.choiceHandler.bind(this);
 
     this.changeContentView(question);
@@ -57,14 +58,14 @@ class GamePresenter {
 
   choiceHandler(userChoice = false) {
     if (userChoice) {
-      gameModel.addCorrectAnswer(gameModel.timer);
+      this.model.addCorrectAnswer(this.model.timer);
     } else {
-      gameModel.addWrongAnswer();
-      gameModel.takeLife();
+      this.model.addWrongAnswer();
+      this.model.takeLife();
     }
 
-    if (gameModel.hasNextQuestion() && gameModel.lifes) {
-      gameModel.nextQuestion();
+    if (this.model.hasNextQuestion() && this.model.lifes) {
+      this.model.nextQuestion();
       this.changeQuestion();
     } else {
       this.endGame();
@@ -72,9 +73,8 @@ class GamePresenter {
   }
 }
 
-const game = new GamePresenter();
-
 export default (gameData, username) => {
+  const game = new GamePresenter(new GameModel(gameData));
   game.startGame(username);
   return game.root;
 };
