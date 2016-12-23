@@ -10,9 +10,15 @@ const renderTemplate = (element, container = mainContainer) => {
   container.appendChild(element);
 };
 
+let gameData;
+
 export default class Application {
   static showIntro() {
     renderTemplate(introView());
+  }
+
+  static showError() {
+
   }
 
   static showGreating() {
@@ -24,10 +30,15 @@ export default class Application {
   }
 
   static showGame(username) {
-    renderTemplate(gameStart(username));
+    renderTemplate(gameStart(gameData, username));
   }
 
   static showStats(state) {
     renderTemplate(statsView(state));
   }
+
+  static set data(value) {
+    gameData = value;
+  }
+
 }

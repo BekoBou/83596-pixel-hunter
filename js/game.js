@@ -74,7 +74,7 @@ class GamePresenter {
 
 const game = new GamePresenter();
 
-export default (username) => {
+export default (gameData, username) => {
   game.startGame(username);
   return game.root;
 };
