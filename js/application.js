@@ -1,4 +1,5 @@
 import introView from './screens/intro';
+import errorView from './screens/error';
 import greetingView from './screens/greeting';
 import rulesView from './screens/rules';
 import gameStart from './game';
@@ -17,8 +18,8 @@ export default class Application {
     renderTemplate(introView());
   }
 
-  static showError() {
-
+  static showError(error) {
+    renderTemplate(errorView(error));
   }
 
   static showGreating() {
