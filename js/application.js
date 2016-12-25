@@ -1,4 +1,5 @@
 import introView from './screens/intro';
+import errorView from './screens/error';
 import greetingView from './screens/greeting';
 import rulesView from './screens/rules';
 import gameStart from './game';
@@ -10,9 +11,15 @@ const renderTemplate = (element, container = mainContainer) => {
   container.appendChild(element);
 };
 
+let gameData;
+
 export default class Application {
   static showIntro() {
     renderTemplate(introView());
+  }
+
+  static showError(error) {
+    renderTemplate(errorView(error));
   }
 
   static showGreating() {
@@ -24,10 +31,15 @@ export default class Application {
   }
 
   static showGame(username) {
-    renderTemplate(gameStart(username));
+    renderTemplate(gameStart(gameData, username));
   }
 
   static showStats(state) {
     renderTemplate(statsView(state));
   }
+
+  static set data(value) {
+    gameData = value;
+  }
+
 }

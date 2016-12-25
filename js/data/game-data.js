@@ -1,5 +1,3 @@
-import questions from './questions';
-
 export const initialGame = {
   questionNumber: 0,
   lifes: 3,
@@ -13,12 +11,12 @@ export const setCurrentQuestion = (game, question) => {
   });
 };
 
-export const hasQuestion = (questionNumber) => {
+export const hasQuestion = (questions, questionNumber) => {
   return questions.length > questionNumber;
 };
 
-export const getQuestion = (questionNumber) => {
-  if ( !hasQuestion(questionNumber)) {
+export const getQuestion = (questions, questionNumber) => {
+  if ( !hasQuestion(questions, questionNumber)) {
     throw new RangeError('Передан неправильный номер вопроса');
   }
 
