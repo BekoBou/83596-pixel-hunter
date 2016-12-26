@@ -4,6 +4,8 @@ import Application from './application';
 import HeaderView from './views/header';
 import QuestionsView from './views/questions';
 
+import bindRestartHandler from './restart';
+
 class GamePresenter {
   constructor(model) {
     this.model = model;
@@ -32,13 +34,14 @@ class GamePresenter {
 
   endGame() {
     clearInterval(this._interval);
-    Application.showStats(this.model.state);
+    Application.saveGame(this.model, this._username);
   }
 
   updateHeader() {
     const header = new HeaderView(this.model.state);
     this.root.replaceChild(header.element, this.header.element);
     this.header = header;
+    bindRestartHandler(header.element, this._interval);
   }
 
   changeQuestion() {
