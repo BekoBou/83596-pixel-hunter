@@ -1,6 +1,7 @@
 import AbstractView from './../views/abstract';
 import getStars from './../templates/stars';
 import {status} from './../const';
+import bindRestartHandler from './../restart';
 
 const renderResultTable = (stats, lifes, tableNumber) => {
   const wrongAnswer = stats.filter((item) => item === status.WRONG).length;
@@ -97,6 +98,10 @@ class StatsView extends AbstractView {
         return renderResultTable(item.stats, item.lives, index + 1);
       }).join('') }
     </div>`;
+  }
+
+  bindHandlers() {
+    bindRestartHandler(this._element);
   }
 }
 

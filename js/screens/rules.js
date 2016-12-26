@@ -1,5 +1,6 @@
 import AbstractView from './../views/abstract';
 import Application from './../application';
+import bindRestartHandler from './../restart';
 
 class RulesView extends AbstractView {
 
@@ -48,6 +49,8 @@ class RulesView extends AbstractView {
 
       Application.showGame(username);
     });
+
+    bindRestartHandler(this._element);
   }
 }
 
