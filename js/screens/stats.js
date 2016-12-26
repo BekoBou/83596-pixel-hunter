@@ -30,7 +30,7 @@ const renderResultTable = (stats, lifes, tableNumber) => {
   let table = `<h1>Победа!</h1>
   <table class="result__table">
     <tr>
-      <td class="result__number">1.</td>
+      <td class="result__number">${ tableNumber }.</td>
       <td colspan="2">
         ${ getStars(stats) }
       </td>
@@ -78,9 +78,9 @@ const renderResultTable = (stats, lifes, tableNumber) => {
 };
 
 class StatsView extends AbstractView {
-  constructor(state) {
+  constructor(stats) {
     super();
-    this._state = state;
+    this._stats = stats;
   }
 
   getMarkup() {
@@ -93,7 +93,9 @@ class StatsView extends AbstractView {
       </div>
     </header>
     <div class="result">
-      ${ renderResultTable(this._state.answers, this._state.lifes, 1) }
+      ${ this._stats.map((item, index) => {
+        return renderResultTable(item.stats, item.lives, index + 1);
+      }).join('') }
     </div>`;
   }
 }

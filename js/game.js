@@ -32,7 +32,7 @@ class GamePresenter {
 
   endGame() {
     clearInterval(this._interval);
-    Application.showStats(this.model.state);
+    Application.saveGame(this.model, this._username);
   }
 
   updateHeader() {

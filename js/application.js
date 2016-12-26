@@ -4,6 +4,20 @@ import greetingView from './screens/greeting';
 import rulesView from './screens/rules';
 import gameStart from './game';
 import statsView from './screens/stats';
+import migrate from './adapter';
+import 'whatwg-fetch';
+
+const statusHTTP = (response) => {
+  if (response.status >= 200 && response.status < 300) {
+    return response;
+  } else {
+    throw new Error(`${response.status} ${response.statusText}`);
+  }
+};
+
+const questionsUrl = 'https://intensive-ecmascript-server-nnpnvhhedl.now.sh/pixel-hunter/questions';
+
+const prefixStatsUrl = 'https://intensive-ecmascript-server-dxttmcdylw.now.sh/pixel-hunter/stats/';
 
 const mainContainer = document.getElementById('main');
 const renderTemplate = (element, container = mainContainer) => {
@@ -16,6 +30,15 @@ let gameData;
 export default class Application {
   static showIntro() {
     renderTemplate(introView());
+
+    window.fetch(questionsUrl)
+        .then(statusHTTP)
+        .then((response) => response.json())
+        .then((data) => {
+          Application.data = migrate(data);
+        })
+        .then(Application.showGreating)
+        .catch(Application.showError);
   }
 
   static showError(error) {
@@ -34,8 +57,40 @@ export default class Application {
     renderTemplate(gameStart(gameData, username));
   }
 
-  static showStats(state) {
-    renderTemplate(statsView(state));
+  static saveGame(model, username) {
+    const url = prefixStatsUrl + username;
+
+    window.fetch(url, {
+      'method': 'POST',
+      'body': JSON.stringify({
+        'stats': model.state.answers,
+        'lives': model.state.lifes
+      }),
+      'headers': {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }})
+        .then(statusHTTP)
+        .then(() => {
+          Application.loadStats(username);
+        })
+        .catch(Application.showError);
+  }
+
+  static loadStats(username) {
+    const url = prefixStatsUrl + username;
+
+    window.fetch(url)
+        .then(statusHTTP)
+        .then((response) => response.json())
+        .then((data) => {
+          Application.showStats(data);
+        })
+        .catch(Application.showError);
+  }
+
+  static showStats(stats) {
+    renderTemplate(statsView(stats));
   }
 
   static set data(value) {
