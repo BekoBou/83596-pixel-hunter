@@ -37,7 +37,7 @@ export default class Application {
         .then((data) => {
           Application.data = migrate(data);
         })
-        .then(Application.showGreating)
+        .then(Application.showGreeting)
         .catch(Application.showError);
   }
 
@@ -45,7 +45,7 @@ export default class Application {
     renderTemplate(errorView(error));
   }
 
-  static showGreating() {
+  static showGreeting() {
     renderTemplate(greetingView());
   }
 
