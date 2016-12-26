@@ -5,12 +5,10 @@ class Resizer {
   }
 
   resize(image) {
-    const imageRatio = image.width / image.height;
-
     const scaleWidth = 1 / (image.width / this.width);
     const scaleHeight = 1 / (image.height / this.height);
 
-    const ratio = imageRatio > 1 ? scaleWidth : scaleHeight;
+    const ratio = scaleWidth < scaleHeight ? scaleWidth : scaleHeight;
 
     image.width = image.width * ratio;
     image.height = image.height * ratio;
@@ -18,7 +16,6 @@ class Resizer {
     return image;
   }
 }
-
 
 export default (element) => {
   return {
