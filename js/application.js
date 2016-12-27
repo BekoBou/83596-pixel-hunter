@@ -44,6 +44,10 @@ const renderTemplate = (element, container = mainContainer) => {
 let gameData;
 
 export default class Application {
+  static set data(value) {
+    gameData = value;
+  }
+
   static showIntro() {
     renderTemplate(introView());
 
@@ -108,9 +112,4 @@ export default class Application {
   static showStats(stats) {
     renderTemplate(statsView(stats));
   }
-
-  static set data(value) {
-    gameData = value;
-  }
-
 }

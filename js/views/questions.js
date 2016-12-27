@@ -31,6 +31,10 @@ export default class QuestionsView extends AbstractView {
     this._question = this._state.questions[this._state.questionNumber];
   }
 
+  set onAnswer(handler) {
+    this._onAnswer = handler;
+  }
+
   getMarkup() {
     return `<div class="game">
       ${ questionTemplate(this._question) }
@@ -38,10 +42,6 @@ export default class QuestionsView extends AbstractView {
         ${ getStars(this._state.answers) }
       </div>
     </div>`;
-  }
-
-  set onAnswer(handler) {
-    this._onAnswer = handler;
   }
 
   bindHandlers() {

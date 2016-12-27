@@ -27,6 +27,14 @@ export default class Model {
     return this._state.answers;
   }
 
+  set timer(value) {
+    this._state = setTimer(this._state, value);
+  }
+
+  get timer() {
+    return this._state.timer;
+  }
+
   takeLife() {
     this._state = setLifes(this._state, this._state.lifes - 1);
   }
@@ -37,14 +45,6 @@ export default class Model {
 
   resetTimer() {
     this._state = setTimer(this._state, 30);
-  }
-
-  set timer(value) {
-    this._state = setTimer(this._state, value);
-  }
-
-  get timer() {
-    return this._state.timer;
   }
 
   isDead() {
