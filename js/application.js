@@ -1,3 +1,6 @@
+import 'whatwg-fetch';
+import './array-from';
+
 import introView from './screens/intro';
 import errorView from './screens/error';
 import greetingView from './screens/greeting';
@@ -5,7 +8,6 @@ import rulesView from './screens/rules';
 import gameStart from './game';
 import statsView from './screens/stats';
 import migrate from './adapter';
-import 'whatwg-fetch';
 
 const statusHTTP = (response) => {
   if (response.status >= 200 && response.status < 300) {
