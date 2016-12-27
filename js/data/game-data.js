@@ -15,14 +15,6 @@ export const hasQuestion = (questions, questionNumber) => {
   return questions.length > questionNumber;
 };
 
-export const getQuestion = (questions, questionNumber) => {
-  if ( !hasQuestion(questions, questionNumber)) {
-    throw new RangeError('Передан неправильный номер вопроса');
-  }
-
-  return questions[questionNumber];
-};
-
 export const setLifes = (game, lifes) => {
   if (lifes < 0 || lifes > 3) {
     throw new RangeError('Передано неправильное количество жизней');

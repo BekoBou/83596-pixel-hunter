@@ -1,4 +1,4 @@
-import {initialGame, hasQuestion, getQuestion, setCurrentQuestion, setLifes, setTimer} from './data/game-data';
+import {initialGame, hasQuestion, setCurrentQuestion, setLifes, setTimer} from './data/game-data';
 import {status} from './const';
 
 export default class Model {
@@ -57,10 +57,6 @@ export default class Model {
 
   nextQuestion() {
     this._state = setCurrentQuestion(this._state, this._state.questionNumber + 1);
-  }
-
-  getCurrentQuestion() {
-    return getQuestion(this._state.questions, this._state.questionNumber);
   }
 
   addCorrectAnswer(timer) {

@@ -7,7 +7,6 @@ const renderResultTable = (stats, lifes, tableNumber) => {
   const wrongAnswer = stats.filter((item) => item === status.WRONG).length;
 
   if (wrongAnswer >= 3) {
-    // FAIL
     let table = `<h1>Поражение!</h1>
     <table class="result__table">
       <tr>

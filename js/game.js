@@ -67,7 +67,7 @@ class GamePresenter {
       this.model.takeLife();
     }
 
-    if (this.model.hasNextQuestion() && this.model.lifes) {
+    if (this.model.hasNextQuestion() && this.model.isDead()) {
       this.model.nextQuestion();
       this.changeQuestion();
     } else {
