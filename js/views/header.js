@@ -1,4 +1,5 @@
 import AbstractView from './abstract';
+import bindRestartHandler from './../restart';
 
 const getHeart = (lifes) => {
   let result = '';
@@ -40,9 +41,7 @@ export default class HeaderView extends AbstractView {
   }
 
   bindHandlers() {
-    this.element
-        .querySelector('.back')
-        .addEventListener('click', this._onBack);
+    bindRestartHandler(this._element, this._onBack);
   }
 
   static getBackButtonTemplate() {
