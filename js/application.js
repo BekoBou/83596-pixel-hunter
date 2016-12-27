@@ -1,3 +1,17 @@
+import polyfillPromise from 'core-js/es6/promise';
+import polyfillObject from 'core-js/es6/object';
+import polyfillSymbol from 'core-js/es6/symbol';
+
+if (!window.Promise) {
+  window.Promise = polyfillPromise;
+}
+if (!Object.assign) {
+  window.Object = polyfillObject;
+}
+if (!window.Symbol) {
+  window.Symbol = polyfillSymbol;
+}
+
 import 'whatwg-fetch';
 import './array-from';
 
