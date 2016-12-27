@@ -1,4 +1,5 @@
 import AbstractView from './../views/abstract';
+import HeaderView from './../views/header';
 import Application from './../application';
 import bindRestartHandler from './../restart';
 
@@ -6,12 +7,7 @@ class RulesView extends AbstractView {
 
   getMarkup() {
     return `<header class="header">
-      <div class="header__back">
-        <span class="back">
-          <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
-          <img src="img/logo_small.png" width="101" height="44">
-        </span>
-      </div>
+      ${ HeaderView.getBackButtonTemplate() }
     </header>
     <div class="rules  central--none">
       <h1 class="rules__title">Правила</h1>

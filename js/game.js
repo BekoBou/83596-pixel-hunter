@@ -41,7 +41,9 @@ class GamePresenter {
     const header = new HeaderView(this.model.state);
     this.root.replaceChild(header.element, this.header.element);
     this.header = header;
-    bindRestartHandler(header.element, this._interval);
+    bindRestartHandler(header.element, () => {
+      clearInterval(this._interval);
+    });
   }
 
   changeQuestion() {

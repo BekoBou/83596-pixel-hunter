@@ -1,13 +1,13 @@
 import Application from './application';
 
-export default (element = document.querySelector('.header__back'), timer) => {
+export default (element = document.querySelector('.header__back'), callback) => {
   const backButton = element.querySelector('.back');
 
   backButton.addEventListener('click', (event) => {
     event.preventDefault();
 
-    if (timer) {
-      clearInterval(timer);
+    if (callback) {
+      callback();
     }
 
     Application.showIntro();
