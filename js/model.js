@@ -1,8 +1,8 @@
-import {initialGame, hasQuestion, setCurrentQuestion, setLifes, setTimer} from './data/game-data';
+import {getInitialGame, hasQuestion, setCurrentQuestion, setLifes, setTimer} from './data/game-data';
 import {status} from './const';
 
 export default class Model {
-  constructor(data, state = initialGame) {
+  constructor(data, state = getInitialGame()) {
     this._state = state;
     this._state.questions = data;
   }

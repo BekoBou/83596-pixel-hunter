@@ -1,8 +1,10 @@
-export const initialGame = {
-  questionNumber: 0,
-  lifes: 3,
-  answers: [],
-  timer: 30,
+export const getInitialGame = () => {
+  return {
+    questionNumber: 0,
+    lifes: 3,
+    answers: [],
+    timer: 30,
+  };
 };
 
 export const setCurrentQuestion = (game, question) => {
