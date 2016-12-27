@@ -4,8 +4,6 @@ import Application from './application';
 import HeaderView from './views/header';
 import QuestionsView from './views/questions';
 
-import bindRestartHandler from './restart';
-
 class GamePresenter {
   constructor(model) {
     this.model = model;
@@ -41,7 +39,9 @@ class GamePresenter {
     const header = new HeaderView(this.model.state);
     this.root.replaceChild(header.element, this.header.element);
     this.header = header;
-    bindRestartHandler(header.element, this._interval);
+    this.header.onBack = () => {
+      clearInterval(this._interval);
+    };
   }
 
   changeQuestion() {
@@ -67,7 +67,7 @@ class GamePresenter {
       this.model.takeLife();
     }
 
-    if (this.model.hasNextQuestion() && this.model.lifes) {
+    if (this.model.hasNextQuestion() && !this.model.isDead()) {
       this.model.nextQuestion();
       this.changeQuestion();
     } else {

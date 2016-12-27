@@ -1,3 +1,20 @@
+import polyfillPromise from 'core-js/es6/promise';
+import polyfillObject from 'core-js/es6/object';
+import polyfillSymbol from 'core-js/es6/symbol';
+
+if (!window.Promise) {
+  window.Promise = polyfillPromise;
+}
+if (!Object.assign) {
+  window.Object = polyfillObject;
+}
+if (!window.Symbol) {
+  window.Symbol = polyfillSymbol;
+}
+
+import 'whatwg-fetch';
+import './array-from';
+
 import introView from './screens/intro';
 import errorView from './screens/error';
 import greetingView from './screens/greeting';
@@ -5,7 +22,6 @@ import rulesView from './screens/rules';
 import gameStart from './game';
 import statsView from './screens/stats';
 import migrate from './adapter';
-import 'whatwg-fetch';
 
 const statusHTTP = (response) => {
   if (response.status >= 200 && response.status < 300) {
@@ -28,6 +44,10 @@ const renderTemplate = (element, container = mainContainer) => {
 let gameData;
 
 export default class Application {
+  static set data(value) {
+    gameData = value;
+  }
+
   static showIntro() {
     renderTemplate(introView());
 
@@ -37,7 +57,7 @@ export default class Application {
         .then((data) => {
           Application.data = migrate(data);
         })
-        .then(Application.showGreating)
+        .then(Application.showGreeting)
         .catch(Application.showError);
   }
 
@@ -45,7 +65,7 @@ export default class Application {
     renderTemplate(errorView(error));
   }
 
-  static showGreating() {
+  static showGreeting() {
     renderTemplate(greetingView());
   }
 
@@ -92,9 +112,4 @@ export default class Application {
   static showStats(stats) {
     renderTemplate(statsView(stats));
   }
-
-  static set data(value) {
-    gameData = value;
-  }
-
 }

@@ -1,8 +1,10 @@
-export const initialGame = {
-  questionNumber: 0,
-  lifes: 3,
-  answers: [],
-  timer: 30,
+export const getInitialGame = () => {
+  return {
+    questionNumber: 0,
+    lifes: 3,
+    answers: [],
+    timer: 30,
+  };
 };
 
 export const setCurrentQuestion = (game, question) => {
@@ -13,14 +15,6 @@ export const setCurrentQuestion = (game, question) => {
 
 export const hasQuestion = (questions, questionNumber) => {
   return questions.length > questionNumber;
-};
-
-export const getQuestion = (questions, questionNumber) => {
-  if ( !hasQuestion(questions, questionNumber)) {
-    throw new RangeError('Передан неправильный номер вопроса');
-  }
-
-  return questions[questionNumber];
 };
 
 export const setLifes = (game, lifes) => {

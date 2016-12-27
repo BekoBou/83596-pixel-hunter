@@ -1,8 +1,8 @@
-import {initialGame, hasQuestion, getQuestion, setCurrentQuestion, setLifes, setTimer} from './data/game-data';
+import {getInitialGame, hasQuestion, setCurrentQuestion, setLifes, setTimer} from './data/game-data';
 import {status} from './const';
 
 export default class Model {
-  constructor(data, state = initialGame) {
+  constructor(data, state = getInitialGame()) {
     this._state = state;
     this._state.questions = data;
   }
@@ -27,6 +27,14 @@ export default class Model {
     return this._state.answers;
   }
 
+  set timer(value) {
+    this._state = setTimer(this._state, value);
+  }
+
+  get timer() {
+    return this._state.timer;
+  }
+
   takeLife() {
     this._state = setLifes(this._state, this._state.lifes - 1);
   }
@@ -39,14 +47,6 @@ export default class Model {
     this._state = setTimer(this._state, 30);
   }
 
-  set timer(value) {
-    this._state = setTimer(this._state, value);
-  }
-
-  get timer() {
-    return this._state.timer;
-  }
-
   isDead() {
     return this._state.lifes <= 0;
   }
@@ -57,10 +57,6 @@ export default class Model {
 
   nextQuestion() {
     this._state = setCurrentQuestion(this._state, this._state.questionNumber + 1);
-  }
-
-  getCurrentQuestion() {
-    return getQuestion(this._state.questions, this._state.questionNumber);
   }
 
   addCorrectAnswer(timer) {

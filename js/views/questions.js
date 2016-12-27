@@ -31,6 +31,10 @@ export default class QuestionsView extends AbstractView {
     this._question = this._state.questions[this._state.questionNumber];
   }
 
+  set onAnswer(handler) {
+    this._onAnswer = handler;
+  }
+
   getMarkup() {
     return `<div class="game">
       ${ questionTemplate(this._question) }
@@ -40,12 +44,7 @@ export default class QuestionsView extends AbstractView {
     </div>`;
   }
 
-  set onAnswer(handler) {
-    this._onAnswer = handler;
-  }
-
   bindHandlers() {
-    // повесили слушателей
     let elements = null; // let scope; I don't want use var and ternary operator.
     if (this._question.type === questionType.TRIPLE) {
       elements = this.element.querySelectorAll('.game__option');
@@ -53,7 +52,6 @@ export default class QuestionsView extends AbstractView {
       elements = this.element.querySelectorAll('.game__answer');
     }
 
-    // сработал и если выполнились условия, удалили всё
     const userChoice = (event) => {
       switch (this._question.type) {
         case questionType.SINGLE: {
@@ -73,15 +71,12 @@ export default class QuestionsView extends AbstractView {
               return result && (element.value === this._question.options[index].answer);
             });
             this._onAnswer(isRight);
-            // remove handler
           }
         } break;
         case questionType.TRIPLE: {
           const target = event.target;
           const answerElements = document.querySelectorAll('.game__option');
-          const answerIndex = Array.from(answerElements).findIndex((element, index) => {
-            return element === target;
-          });
+          const answerIndex = Array.from(answerElements).findIndex((element) => element === target);
 
           this._onAnswer(this._question.options[answerIndex].answer === 'paint');
         } break;
