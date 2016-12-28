@@ -76,7 +76,15 @@ export default class QuestionsView extends AbstractView {
         case questionType.TRIPLE: {
           const target = event.target;
           const answerElements = document.querySelectorAll('.game__option');
-          const answerIndex = Array.from(answerElements).findIndex((element) => element === target);
+
+          // hack because polifill findIndex in IE11 doesn't work
+          let answerIndex = -1;
+          for (let i = 0; i < answerElements.length; i++) {
+            if (answerElements[i] === target) {
+              answerIndex = i;
+              break;
+            }
+          }
 
           this._onAnswer(this._question.options[answerIndex].answer === 'paint');
         } break;
