@@ -125,3 +125,6 @@
 
 }
 
+.game__option--no-pointer-events img {
+  pointer-events: none;
+}
